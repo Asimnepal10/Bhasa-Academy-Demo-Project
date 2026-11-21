@@ -1,0 +1,775 @@
+{
+  "users": [
+    {
+      "id": "user_3a820bff1829eb4f",
+      "email": "luna@example.com",
+      "username": "LongTermLuna",
+      "passwordHash": "41bd876b085d6031cb0e04de35b88d77f83a4ba39f879fee40805ac19e356023",
+      "isGuest": false,
+      "createdAt": "2026-11-21T19:49:29.739Z",
+      "paper": {
+        "cash": 108240,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000,
+          108240
+        ]
+      },
+      "completedLessons": [
+        "seed-1",
+        "seed-2",
+        "seed-3",
+        "seed-4",
+        "seed-5",
+        "seed-6",
+        "seed-7",
+        "seed-8",
+        "seed-9",
+        "seed-10",
+        "seed-11",
+        "seed-12",
+        "seed-13",
+        "seed-14",
+        "seed-15",
+        "seed-16",
+        "seed-17",
+        "seed-18"
+      ],
+      "glossaryReveals": [],
+      "bestQuizScore": 5,
+      "bestFinalExamScore": 0,
+      "achievements": [
+        "profile-created",
+        "first-lesson",
+        "five-lessons",
+        "fifteen-lessons",
+        "paper-profit",
+        "quiz-score"
+      ],
+      "lastChallengeKey": null,
+      "coachLog": []
+    },
+    {
+      "id": "user_1c2201efe8392ef3",
+      "email": "captain@example.com",
+      "username": "ChartCaptain",
+      "passwordHash": "41bd876b085d6031cb0e04de35b88d77f83a4ba39f879fee40805ac19e356023",
+      "isGuest": false,
+      "createdAt": "2026-11-21T19:49:29.740Z",
+      "paper": {
+        "cash": 106910,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000,
+          106910
+        ]
+      },
+      "completedLessons": [
+        "seed-1",
+        "seed-2",
+        "seed-3",
+        "seed-4",
+        "seed-5",
+        "seed-6",
+        "seed-7",
+        "seed-8",
+        "seed-9",
+        "seed-10",
+        "seed-11"
+      ],
+      "glossaryReveals": [],
+      "bestQuizScore": 4,
+      "bestFinalExamScore": 0,
+      "achievements": [
+        "profile-created",
+        "first-lesson",
+        "five-lessons",
+        "paper-profit",
+        "quiz-score"
+      ],
+      "lastChallengeKey": null,
+      "coachLog": []
+    },
+    {
+      "id": "user_4f26061015354db3",
+      "email": "voyager@example.com",
+      "username": "ValueVoyager",
+      "passwordHash": "41bd876b085d6031cb0e04de35b88d77f83a4ba39f879fee40805ac19e356023",
+      "isGuest": false,
+      "createdAt": "2026-11-21T19:49:29.740Z",
+      "paper": {
+        "cash": 103550,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000,
+          103550
+        ]
+      },
+      "completedLessons": [
+        "seed-1",
+        "seed-2",
+        "seed-3",
+        "seed-4",
+        "seed-5",
+        "seed-6",
+        "seed-7",
+        "seed-8",
+        "seed-9",
+        "seed-10",
+        "seed-11",
+        "seed-12",
+        "seed-13",
+        "seed-14",
+        "seed-15",
+        "seed-16",
+        "seed-17",
+        "seed-18",
+        "seed-19",
+        "seed-20"
+      ],
+      "glossaryReveals": [],
+      "bestQuizScore": 5,
+      "bestFinalExamScore": 0,
+      "achievements": [
+        "profile-created",
+        "first-lesson",
+        "five-lessons",
+        "fifteen-lessons",
+        "paper-profit",
+        "quiz-score"
+      ],
+      "lastChallengeKey": null,
+      "coachLog": []
+    },
+    {
+      "id": "user_cf3637c9454e6c42",
+      "email": "",
+      "username": "guest-04bd4b",
+      "passwordHash": "",
+      "isGuest": true,
+      "createdAt": "2026-11-21T19:52:33.365Z",
+      "paper": {
+        "cash": 90125.9,
+        "positions": {
+          "COST": {
+            "shares": 10,
+            "averageCost": 987.4100000000001
+          }
+        },
+        "history": [
+          {
+            "type": "buy",
+            "symbol": "COST",
+            "shares": 10,
+            "price": 987.41,
+            "timestamp": "2026-11-21T20:00:22.480Z"
+          }
+        ],
+        "valueHistory": [
+          100000,
+          100000
+        ]
+      },
+      "completedLessons": [],
+      "glossaryReveals": [
+        "Price to earnings ratio",
+        "Compound annual growth rate",
+        "Drawdown",
+        "Diversification"
+      ],
+      "bestQuizScore": 2,
+      "bestFinalExamScore": 25,
+      "achievements": [
+        "first-trade",
+        "daily-challenge",
+        "coach-used"
+      ],
+      "lastChallengeKey": "2026-11-21:trade",
+      "coachLog": [
+        {
+          "question": "What is compound annual growth rate and why does it matter?",
+          "selectedSymbol": "MA",
+          "timestamp": "2026-11-21T19:54:10.216Z"
+        },
+        {
+          "question": "What is compound annual growth rate and why does it matter?",
+          "selectedSymbol": "COST",
+          "timestamp": "2026-11-21T20:07:21.102Z"
+        },
+        {
+          "question": "should I buy costco or nvidia",
+          "selectedSymbol": "COST",
+          "timestamp": "2026-11-21T20:10:32.276Z"
+        }
+      ]
+    },
+    {
+      "id": "user_7d0d8c1025f2a249",
+      "email": "",
+      "username": "guest-45ed94",
+      "passwordHash": "",
+      "isGuest": true,
+      "createdAt": "2026-11-21T19:53:28.869Z",
+      "paper": {
+        "cash": 100000,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000
+        ]
+      },
+      "completedLessons": [],
+      "glossaryReveals": [],
+      "bestQuizScore": 0,
+      "bestFinalExamScore": 0,
+      "achievements": [],
+      "lastChallengeKey": null,
+      "coachLog": []
+    },
+    {
+      "id": "guest_1795295395932_00027a",
+      "email": "guest-1795295395932_00027a@stockpilot.local",
+      "username": "Guest-00027a",
+      "passwordHash": null,
+      "isGuest": true,
+      "createdAt": "2026-11-21T21:09:55.936Z",
+      "paper": {
+        "cash": 100000,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000
+        ]
+      },
+      "completedLessons": [],
+      "glossaryReveals": [],
+      "bestQuizScore": 5,
+      "bestFinalExamScore": 0,
+      "achievements": [
+        "coach-used",
+        "coach-strategist",
+        "quiz-score"
+      ],
+      "lastChallengeKey": null,
+      "coachLog": [
+        {
+          "question": "Costco info",
+          "selectedSymbol": "SCHW",
+          "timestamp": "2026-11-21T21:24:48.908Z"
+        },
+        {
+          "question": "Costco",
+          "selectedSymbol": "SCHW",
+          "timestamp": "2026-11-21T21:24:54.411Z"
+        },
+        {
+          "question": "Costco",
+          "selectedSymbol": "SCHW",
+          "timestamp": "2026-11-21T21:24:55.042Z"
+        },
+        {
+          "question": "Summarize SCHW for me.",
+          "selectedSymbol": "SCHW",
+          "timestamp": "2026-11-21T21:24:56.153Z"
+        },
+        {
+          "question": "Summarize SCHW for me.",
+          "selectedSymbol": "SCHW",
+          "timestamp": "2026-11-21T21:24:57.246Z"
+        }
+      ]
+    },
+    {
+      "id": "guest_1795295402387_7fee73",
+      "email": "guest-1795295402387_7fee73@stockpilot.local",
+      "username": "Guest-7fee73",
+      "passwordHash": null,
+      "isGuest": true,
+      "createdAt": "2026-11-21T21:10:02.387Z",
+      "paper": {
+        "cash": 100000,
+        "positions": {},
+        "history": [],
+        "valueHistory": [
+          100000
+        ]
+      },
+      "completedLessons": [],
+      "glossaryReveals": [],
+      "bestQuizScore": 0,
+      "bestFinalExamScore": 0,
+      "achievements": [],
+      "lastChallengeKey": null,
+      "coachLog": []
+    },
+    {
+      "id": "user_1795295454094",
+      "email": "asimnepal500@gmail.com",
+      "username": "asimnepal10",
+      "passwordHash": "e2fea86a187bcdd9080e5f0a7e2a7a6c28c9480f7c5e0ba77e00d30a1146dc3b",
+      "isGuest": false,
+      "createdAt": "2026-11-21T21:10:54.094Z",
+      "paper": {
+        "cash": 10470.650000000107,
+        "positions": {
+          "AMD": {
+            "shares": 37,
+            "averageCost": 266.70000000000005
+          },
+          "NVDA": {
+            "shares": 400,
+            "averageCost": 198.6
+          },
+          "AAPL": {
+            "shares": 1,
+            "averageCost": 221.45
+          }
+        },
+        "history": [
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:12:36.944Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:47.219Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:47.434Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:47.602Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:47.767Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:47.983Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:48.178Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:48.335Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:48.535Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:48.718Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:48.921Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:49.113Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:49.332Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:49.525Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:49.752Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:49.942Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:50.146Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:50.347Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:50.504Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:52.108Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:52.307Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:52.499Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:52.701Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:52.869Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.059Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.243Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.435Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.616Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.808Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:53.997Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:54.199Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:54.418Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:54.672Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:54.862Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:55.039Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:55.229Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AMD",
+            "shares": 1,
+            "price": 266.7,
+            "timestamp": "2026-11-21T21:49:55.416Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "NVDA",
+            "shares": 400,
+            "price": 198.6,
+            "timestamp": "2026-11-21T21:50:07.332Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "AAPL",
+            "shares": 1,
+            "price": 221.45,
+            "timestamp": "2026-11-21T21:50:27.904Z"
+          }
+        ],
+        "valueHistory": [
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000,
+          100000
+        ]
+      },
+      "completedLessons": [],
+      "glossaryReveals": [],
+      "bestQuizScore": 1,
+      "bestFinalExamScore": 33,
+      "achievements": [
+        "profile-created",
+        "first-trade",
+        "five-trades",
+        "ten-trades",
+        "portfolio-builder",
+        "paper-profit",
+        "coach-used",
+        "coach-strategist"
+      ],
+      "lastChallengeKey": null,
+      "coachLog": [
+        {
+          "question": "Explain diversification like I am brand new to investing.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:14:41.482Z"
+        },
+        {
+          "question": "Explain diversification like I am brand new to investing.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:14:42.329Z"
+        },
+        {
+          "question": "Explain diversification like I am brand new to investing.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:14:43.519Z"
+        },
+        {
+          "question": "Summarize AMD for me.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:14:44.654Z"
+        },
+        {
+          "question": "Explain diversification like I am brand new to investing.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:15:02.382Z"
+        },
+        {
+          "question": "which is better costco or nvidia?",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:14.111Z"
+        },
+        {
+          "question": "what is the best buy right now?",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:27.718Z"
+        },
+        {
+          "question": "Summarize the selected stock in plain English.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:39.050Z"
+        },
+        {
+          "question": "Summarize the selected stock in plain English.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:39.872Z"
+        },
+        {
+          "question": "what is backtesting?",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:47.870Z"
+        },
+        {
+          "question": "Summarize AMD for me.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:49.337Z"
+        },
+        {
+          "question": "Summarize AMD for me.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:50.406Z"
+        },
+        {
+          "question": "what is backtesting?",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:52.455Z"
+        },
+        {
+          "question": "Summarize AMD for me.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:57.432Z"
+        },
+        {
+          "question": "Summarize AMD for me.",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:58.141Z"
+        },
+        {
+          "question": "what is backtesting?",
+          "selectedSymbol": "AMD",
+          "timestamp": "2026-11-21T21:20:58.911Z"
+        }
+      ]
+    }
+  ],
+  "sessions": [
+    {
+      "token": "session_d1501a83b341301d",
+      "userId": "user_cf3637c9454e6c42",
+      "createdAt": "2026-11-21T19:52:33.365Z"
+    },
+    {
+      "token": "session_b1650e2c5f7d51b0",
+      "userId": "user_7d0d8c1025f2a249",
+      "createdAt": "2026-11-21T19:53:28.869Z"
+    },
+    {
+      "token": "e72e9fe83703d83e9146128630c22c95a855fa634868dec4",
+      "userId": "guest_1795295395932_00027a",
+      "createdAt": "2026-11-21T21:09:55.936Z"
+    },
+    {
+      "token": "9faacbbe29debefb0234b05c8ca7786d8f00fa5d35283a98",
+      "userId": "guest_1795295402387_7fee73",
+      "createdAt": "2026-11-21T21:10:02.387Z"
+    },
+    {
+      "token": "79cd7a3239e9bdc4d59e07a28c28884c4150bd245256616f",
+      "userId": "user_1795295454094",
+      "createdAt": "2026-11-21T21:10:54.094Z"
+    }
+  ]
+}

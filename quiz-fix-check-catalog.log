@@ -1,0 +1,11 @@
+C:\Users\Asimn\OneDrive\Bhasa Academy Demo Project\Bhasa Academy Demo Project\lib\catalog.js:319
+})).map((stock) => ({
+  ^
+System.Management.Automation.RemoteException
+SyntaxError: Unexpected token ')'
+    at wrapSafe (node:internal/modules/cjs/loader:1900:18)
+    at checkSyntax (node:internal/main/check_syntax:88:3)
+System.Management.Automation.RemoteException
+Node.js v26.13.1
+EXIT=1
+EXIT=0

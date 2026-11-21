@@ -1,0 +1,8 @@
+
+LocalAddress LocalPort RemoteAddress RemotePort       State OwningProcess
+------------ --------- ------------- ----------       ----- -------------
+::                4173 ::                     0      Listen         22900
+127.0.0.1         4173 127.0.0.1          59854 Established         22900
+
+
+

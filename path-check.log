@@ -1,0 +1,8 @@
+lib\catalog.js=False
+lib\store.js=False
+data\db.json=False
+.\index.html=True
+.\script.js=True
+.\server.js=True
+.\styles.css=True
+.\package.json=True

@@ -1,0 +1,239 @@
+const express = require('express');
+const path = require('path');
+const {
+  benchmark,
+  stocks,
+  strategies,
+  lessons,
+  quizBank,
+  games,
+  glossaryTerms,
+  coachPrompts,
+  getDailyChallenge,
+  getBootstrapPayload,
+  buildCoachResponse,
+  runBacktest
+} = require('./lib/catalog');
+const {
+  readDb,
+  writeDb,
+  ensureDb,
+  hashPassword,
+  createGuestUser,
+  createSession,
+  getUserAndSessionByToken,
+  calculatePaperValue,
+  recalculateAchievements,
+  publicUser,
+  seedUsers
+} = require('./lib/store');
+
+const app = express();
+const PORT = process.env.PORT || 4173;
+
+ensureDb();
+const seededDb = readDb();
+seedUsers(seededDb);
+writeDb(seededDb);
+
+app.use(express.json({ limit: '1mb' }));
+app.use(express.static(path.join(__dirname)));
+
+function authRequired(req, res, next) {
+  const token = req.header('x-stockpilot-session') || req.query.session || null;
+  const db = readDb();
+  const { user } = getUserAndSessionByToken(db, token);
+  if (!user) {
+    return res.status(401).json({ error: 'Authentication required.' });
+  }
+  req.db = db;
+  req.user = user;
+  req.sessionToken = token;
+  next();
+}
+
+function validationError(res, message) {
+  return res.status(400).json({ error: message });
+}
+
+app.get('/api/bootstrap', (req, res) => {
+  res.json(getBootstrapPayload());
+});
+
+app.post('/api/auth/guest', (req, res) => {
+  const db = readDb();
+  const guest = createGuestUser();
+  db.users.push(guest);
+  const session = createSession(guest.id);
+  db.sessions.push(session);
+  writeDb(db);
+  res.json({ sessionToken: session.token, user: publicUser(guest, stocks) });
+});
+
+app.post('/api/auth/register', (req, res) => {
+  const { email, username, password } = req.body || {};
+  if (!email || !username || !password) return validationError(res, 'Email, username, and password are required.');
+  const db = readDb();
+  const existing = db.users.find((user) => user.email.toLowerCase() === String(email).toLowerCase() || user.username.toLowerCase() === String(username).toLowerCase());
+  if (existing) return validationError(res, 'A user with that email or username already exists.');
+
+  const user = {
+    id: `user_${Date.now()}`,
+    email,
+    username,
+    passwordHash: hashPassword(password),
+    isGuest: false,
+    createdAt: new Date().toISOString(),
+    paper: { cash: 100000, positions: {}, history: [], valueHistory: [100000] },
+    completedLessons: [],
+    glossaryReveals: [],
+    bestQuizScore: 0,
+    bestFinalExamScore: 0,
+    achievements: [],
+    lastChallengeKey: null,
+    coachLog: []
+  };
+  recalculateAchievements(user);
+  db.users.push(user);
+  const session = createSession(user.id);
+  db.sessions.push(session);
+  writeDb(db);
+  res.json({ sessionToken: session.token, user: publicUser(user, stocks) });
+});
+
+app.post('/api/auth/login', (req, res) => {
+  const { identifier, password } = req.body || {};
+  if (!identifier || !password) return validationError(res, 'Identifier and password are required.');
+  const db = readDb();
+  const user = db.users.find((item) => item.email.toLowerCase() === String(identifier).toLowerCase() || item.username.toLowerCase() === String(identifier).toLowerCase());
+  if (!user || user.passwordHash !== hashPassword(password)) {
+    return res.status(401).json({ error: 'Invalid login credentials.' });
+  }
+  const session = createSession(user.id);
+  db.sessions.push(session);
+  writeDb(db);
+  res.json({ sessionToken: session.token, user: publicUser(user, stocks) });
+});
+
+app.post('/api/auth/logout', authRequired, (req, res) => {
+  req.db.sessions = req.db.sessions.filter((session) => session.token !== req.sessionToken);
+  writeDb(req.db);
+  res.json({ success: true });
+});
+
+app.get('/api/me', authRequired, (req, res) => {
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ user: publicUser(req.user, stocks) });
+});
+
+app.put('/api/me/profile', authRequired, (req, res) => {
+  const { email, username, password } = req.body || {};
+  if (!email || !username) return validationError(res, 'Email and username are required.');
+  const duplicate = req.db.users.find((item) => item.id !== req.user.id && (item.email.toLowerCase() === String(email).toLowerCase() || item.username.toLowerCase() === String(username).toLowerCase()));
+  if (duplicate) return validationError(res, 'A different user already uses that email or username.');
+  const user = req.user;
+  user.email = email;
+  user.username = username;
+  user.isGuest = false;
+  if (password) user.passwordHash = hashPassword(password);
+  recalculateAchievements(user);
+  writeDb(req.db);
+  res.json({ user: publicUser(user, stocks) });
+});
+
+app.post('/api/paper/trade', authRequired, (req, res) => {
+  const { side, symbol, shares } = req.body || {};
+  const tradeShares = Number(shares);
+  if (!['buy', 'sell'].includes(side)) return validationError(res, 'Trade side must be buy or sell.');
+  if (!Number.isInteger(tradeShares) || tradeShares <= 0) return validationError(res, 'Shares must be a whole number greater than zero.');
+  const stock = stocks.find((item) => item.symbol === symbol);
+  if (!stock) return validationError(res, 'Unknown stock symbol.');
+
+  const user = req.user;
+  const existing = user.paper.positions[symbol] || { shares: 0, averageCost: 0 };
+  const total = stock.currentPrice * tradeShares;
+
+  if (side === 'buy') {
+    if (total > user.paper.cash) return validationError(res, 'Not enough paper cash available for that trade.');
+    const totalShares = existing.shares + tradeShares;
+    const totalCost = (existing.averageCost * existing.shares) + total;
+    user.paper.positions[symbol] = { shares: totalShares, averageCost: totalCost / totalShares };
+    user.paper.cash -= total;
+  } else {
+    if (existing.shares < tradeShares) return validationError(res, 'You cannot sell more shares than you currently own.');
+    existing.shares -= tradeShares;
+    user.paper.cash += total;
+    if (existing.shares === 0) delete user.paper.positions[symbol];
+    else user.paper.positions[symbol] = existing;
+  }
+
+  user.paper.history.push({ type: side, symbol, shares: tradeShares, price: stock.currentPrice, timestamp: new Date().toISOString() });
+  user.paper.valueHistory.push(calculatePaperValue(user, stocks));
+  recalculateAchievements(user);
+  writeDb(req.db);
+  res.json({ success: true, message: `${side === 'buy' ? 'Bought' : 'Sold'} ${tradeShares} shares of ${stock.name}.`, user: publicUser(user, stocks) });
+});
+
+app.post('/api/paper/reset', authRequired, (req, res) => {
+  req.user.paper = { cash: 100000, positions: {}, history: [], valueHistory: [100000] };
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ success: true, user: publicUser(req.user, stocks) });
+});
+
+app.post('/api/lessons/complete', authRequired, (req, res) => {
+  const { lessonId } = req.body || {};
+  if (!lessonId) return validationError(res, 'Lesson id is required.');
+  if (!req.user.completedLessons.includes(lessonId)) req.user.completedLessons.push(lessonId);
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ user: publicUser(req.user, stocks) });
+});
+
+app.post('/api/glossary/reveal', authRequired, (req, res) => {
+  const { term } = req.body || {};
+  if (!term) return validationError(res, 'Term is required.');
+  if (!req.user.glossaryReveals.includes(term)) req.user.glossaryReveals.push(term);
+  writeDb(req.db);
+  res.json({ user: publicUser(req.user, stocks) });
+});
+
+app.post('/api/quiz/submit', authRequired, (req, res) => {
+  const { score, finalExamScore } = req.body || {};
+  if (typeof score === 'number') req.user.bestQuizScore = Math.max(req.user.bestQuizScore || 0, score);
+  if (typeof finalExamScore === 'number') req.user.bestFinalExamScore = Math.max(req.user.bestFinalExamScore || 0, finalExamScore);
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ user: publicUser(req.user, stocks) });
+});
+
+app.post('/api/challenge/complete', authRequired, (req, res) => {
+  const challenge = getDailyChallenge();
+  req.user.lastChallengeKey = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}:${challenge.id}`;
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ user: publicUser(req.user, stocks), challenge });
+});
+
+app.post('/api/coach/ask', authRequired, (req, res) => {
+  const { question, selectedSymbol } = req.body || {};
+  const response = buildCoachResponse(question, selectedSymbol);
+  req.user.coachLog.push({ question: question || '', selectedSymbol: selectedSymbol || '', timestamp: new Date().toISOString() });
+  recalculateAchievements(req.user);
+  writeDb(req.db);
+  res.json({ response, user: publicUser(req.user, stocks) });
+});
+
+app.get('/api/backtest/:strategyId', (req, res) => {
+  const startingCapital = Number(req.query.capital || 10000);
+  res.json(runBacktest(req.params.strategyId, startingCapital));
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`StockPilot dynamic app running on http://localhost:${PORT}`);
+});

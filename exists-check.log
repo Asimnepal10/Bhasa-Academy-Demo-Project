@@ -1,0 +1,8 @@
+index.html=False
+script.js=False
+server.js=False
+package.json=False
+README.md=False
+styles.css=False
+lib=True
+data=True

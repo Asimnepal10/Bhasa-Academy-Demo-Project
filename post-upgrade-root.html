@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StockPilot is a dynamic investing platform with stock analysis, paper trading, backtesting, learning tools, games, a glossary, achievements, and an AI-style stock coach.">
+  <meta name="theme-color" content="#0b1020">
+  <title>StockPilot | Interactive Stocks Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#overview" data-scroll-target="overview" aria-label="StockPilot home">
+        <span class="brand-mark">SP</span>
+        <span class="brand-text">
+          <strong>StockPilot</strong>
+          <small>Dynamic stocks and learning platform</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#overview" data-scroll-target="overview">Overview</a>
+        <a href="#watchlist" data-scroll-target="watchlist">Stocks</a>
+        <a href="#simulator" data-scroll-target="simulator">Paper trading</a>
+        <a href="#analytics" data-scroll-target="analytics">Analytics</a>
+        <a href="#backtest" data-scroll-target="backtest">Backtest</a>
+        <a href="#learning" data-scroll-target="learning">Learning</a>
+        <a href="#quiz-center" data-scroll-target="quiz-center">Quizzes</a>
+        <a href="#games" data-scroll-target="games">Games</a>
+        <a href="#glossary" data-scroll-target="glossary">Glossary</a>
+        <a href="#achievements" data-scroll-target="achievements">Achievements</a>
+        <a href="#coach" data-scroll-target="coach">Coach</a>
+        <a href="#account" data-scroll-target="account">Profile</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="button button-secondary" type="button" data-scroll-target="coach">Ask the stock coach</button>
+        <button class="button button-primary" type="button" data-scroll-target="simulator">Open paper trading</button>
+      </div>
+    </header>
+
+    <div class="snapshot-banner card-mini">
+      <p class="mini-label">Current quote snapshot</p>
+      <strong id="snapshotDateLabel">Connecting...</strong>
+      <p>Verified market data served through the StockPilot backend for a dynamic demo experience.</p>
+    </div>
+
+    <main>
+      <section class="hero section-card" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">Everything visible • everything usable • dynamic data flow</p>
+          <h1>StockPilot</h1>
+          <p class="section-copy wide-copy">
+            Explore stocks, practice with paper trading, run backtests, study lessons, take quizzes, use the glossary, unlock achievements, and ask the stock coach questions in one clean dynamic website.
+          </p>
+
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-scroll-target="simulator">Start paper trading</button>
+            <button class="button button-secondary" type="button" data-scroll-target="analytics">Open analytics</button>
+            <button class="button button-secondary" type="button" data-scroll-target="learning">Study lessons</button>
+          </div>
+        </div>
+
+        <div class="hero-side-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h2>Market pulse</h2>
+              <span class="tag">Verified snapshot</span>
+            </div>
+            <div class="market-grid" id="marketSummary"></div>
+            <div class="summary-block">
+              <strong id="marketMoodLabel">Connecting market tone...</strong>
+              <p id="marketMoodText"></p>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="metric-grid compact-grid" id="overviewMetrics"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="account">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Profile and saved progress</p>
+            <h2>Persistent account and saved learning history</h2>
+          </div>
+          <p class="section-copy">This dynamic build stores account data and progress on the server.</p>
+        </div>
+
+        <div class="dual-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Profile access</h3>
+              <span class="tag">Server stored</span>
+            </div>
+            <form id="accountForm" class="stack-form">
+              <label class="field">
+                <span>Email address</span>
+                <input id="accountEmail" type="email" placeholder="name@gmail.com" required>
+              </label>
+              <label class="field">
+                <span>Username</span>
+                <input id="accountUsername" type="text" placeholder="Choose your username" required>
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input id="accountPassword" type="password" placeholder="Create a password" required>
+              </label>
+              <div class="button-row">
+                <button class="button button-primary" type="submit">Create account or sign in</button>
+                <button class="button button-secondary" id="logoutButton" type="button">Sign out to guest mode</button>
+              </div>
+            </form>
+            <p class="form-status" id="accountStatus" aria-live="polite"></p>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Profile summary</h3>
+              <span class="tag">Progress</span>
+            </div>
+            <div class="metric-grid compact-grid" id="accountSummary"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="watchlist">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Stock explorer</p>
+            <h2>Track, compare, trade, and understand stocks</h2>
+          </div>
+          <p class="section-copy">Choose a stock and jump into analytics, paper trading, or the coach instantly.</p>
+        </div>
+
+        <div class="explorer-layout">
+          <article class="card spotlight-card">
+            <div class="spotlight-header">
+              <div>
+                <p class="ticker" id="selectedSymbol">--</p>
+                <h3 id="selectedName">Selected stock</h3>
+              </div>
+              <span class="sector-badge" id="selectedSector">Sector</span>
+            </div>
+
+            <div class="price-cluster">
+              <div>
+                <span class="label">Current price</span>
+                <strong id="selectedPrice">--</strong>
+              </div>
+              <div>
+                <span class="label">Daily change</span>
+                <strong id="selectedChange">--</strong>
+              </div>
+              <div>
+                <span class="label">Market capitalization</span>
+                <strong id="selectedMarketCap">--</strong>
+              </div>
+            </div>
+
+            <div class="spotlight-metrics" id="selectedMetrics"></div>
+
+            <div class="toolbar minimal-toolbar">
+              <label class="field">
+                <span>Performance range</span>
+                <select id="watchlistRangeSelect">
+                  <option value="10y">10 years</option>
+                  <option value="5y">5 years</option>
+                  <option value="3y">3 years</option>
+                  <option value="1y">1 year</option>
+                  <option value="ytd">Year to date</option>
+                  <option value="6m">6 months</option>
+                  <option value="3m">3 months</option>
+                  <option value="1m">1 month</option>
+                  <option value="2w">2 weeks</option>
+                  <option value="1w">1 week</option>
+                  <option value="3d">3 days</option>
+                  <option value="1d">Today</option>
+                </select>
+              </label>
+              <div class="field action-field">
+                <span>Quick actions</span>
+                <div class="button-row">
+                  <button class="button button-secondary action-select-trade" type="button">Trade this stock</button>
+                  <button class="button button-secondary action-select-analytics" type="button">View analytics</button>
+                  <button class="button button-secondary action-select-coach" type="button">Ask coach</button>
+                </div>
+              </div>
+            </div>
+
+            <canvas id="trendChart" width="640" height="320" role="img" aria-label="Selected stock chart"></canvas>
+            <p class="chart-caption" id="chartCaption">Selected stock chart.</p>
+          </article>
+
+          <aside class="card watchlist-card">
+            <div class="card-title-row">
+              <h3>Tracked stocks</h3>
+              <span class="tag" id="trackedCountTag">0 tracked</span>
+            </div>
+            <div class="watchlist-grid" id="watchlistGrid"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-card" id="screener">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Stock screener</p>
+            <h2>Search, filter, and load stocks into the workspace</h2>
+          </div>
+          <p class="section-copy">Search by ticker or company, filter by sector, and sort by returns or valuation profile.</p>
+        </div>
+
+        <div class="toolbar card toolbar-card">
+          <label class="field">
+            <span>Search stock</span>
+            <input id="searchInput" type="search" placeholder="Search by symbol or company name">
+          </label>
+          <label class="field">
+            <span>Sector filter</span>
+            <select id="sectorFilter"></select>
+          </label>
+          <label class="field">
+            <span>Sort by</span>
+            <select id="sortSelect"></select>
+          </label>
+        </div>
+
+        <div class="table-summary">
+          <p id="tableSummary" aria-live="polite">Ready.</p>
+        </div>
+
+        <div class="card table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ticker</th>
+                  <th>Company</th>
+                  <th>Sector</th>
+                  <th>Current price</th>
+                  <th>Daily change</th>
+                  <th>Five-year compound annual growth rate</th>
+                  <th>Price to earnings ratio</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="stockTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" id="simulator">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Paper trading simulator</p>
+            <h2>Practice investing with server-backed simulated money</h2>
+          </div>
+          <p class="section-copy">Search for a stock, choose buy or sell, and track positions, cash, and performance through backend APIs.</p>
+        </div>
+
+        <div class="simulator-layout">
+          <article class="card trade-ticket-card">
+            <div class="card-title-row">
+              <h3>Trade ticket</h3>
+              <span class="tag">Paper money only</span>
+            </div>
+            <form id="tradeForm" class="stack-form">
+              <label class="field">
+                <span>Search stock</span>
+                <input id="tradeSearchInput" type="text" list="stockSuggestions" placeholder="Type symbol or company name">
+                <datalist id="stockSuggestions"></datalist>
+              </label>
+              <label class="field">
+                <span>Selected stock</span>
+                <select id="tradeSymbolSelect"></select>
+              </label>
+              <label class="field">
+                <span>Trade side</span>
+                <select id="tradeSide">
+                  <option value="buy">Buy</option>
+                  <option value="sell">Sell</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Number of shares</span>
+                <input id="tradeShares" type="number" min="1" step="1" value="1" required>
+              </label>
+              <div class="summary-block" id="tradePreview"></div>
+              <div class="button-row">
+                <button class="button button-primary" type="submit">Submit paper trade</button>
+                <button class="button button-secondary" id="resetPortfolioButton" type="button">Reset paper account</button>
+              </div>
+            </form>
+            <p class="form-status" id="tradeStatus" aria-live="polite"></p>
+          </article>
+
+          <article class="card simulator-summary-card">
+            <div class="card-title-row">
+              <h3>Paper account summary</h3>
+              <span class="tag">Server stored</span>
+            </div>
+            <div class="metric-grid compact-grid" id="paperTradingSummary"></div>
+            <div class="summary-block" id="paperTradingNarrative"></div>
+          </article>
+
+          <article class="card simulator-chart-card">
+            <div class="card-title-row">
+              <h3>Paper trading performance chart</h3>
+              <span class="tag">Detailed range controls</span>
+            </div>
+            <div class="toolbar minimal-toolbar">
+              <label class="field">
+                <span>Performance range</span>
+                <select id="paperRangeSelect">
+                  <option value="10y">10 years</option>
+                  <option value="5y">5 years</option>
+                  <option value="3y">3 years</option>
+                  <option value="1y">1 year</option>
+                  <option value="ytd">Year to date</option>
+                  <option value="6m">6 months</option>
+                  <option value="3m">3 months</option>
+                  <option value="1m">1 month</option>
+                  <option value="2w">2 weeks</option>
+                  <option value="1w">1 week</option>
+                  <option value="3d">3 days</option>
+                  <option value="1d">Today</option>
+                </select>
+              </label>
+            </div>
+            <canvas id="portfolioChart" width="640" height="340" role="img" aria-label="Paper trading performance chart"></canvas>
+          </article>
+
+          <article class="card simulator-positions-card">
+            <div class="card-title-row">
+              <h3>Positions</h3>
+              <span class="tag">Open trades</span>
+            </div>
+            <div class="table-scroll small-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ticker</th>
+                    <th>Shares</th>
+                    <th>Average cost</th>
+                    <th>Current value</th>
+                    <th>Profit and loss</th>
+                  </tr>
+                </thead>
+                <tbody id="positionsTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card simulator-activity-card">
+            <div class="card-title-row">
+              <h3>Trade history</h3>
+              <span class="tag">Chronological</span>
+            </div>
+            <div class="activity-list" id="tradeHistory"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="analytics">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Detailed analytics</p>
+            <h2>Analyze the selected stock and paper account</h2>
+          </div>
+          <p class="section-copy">Switch ranges, compare to the benchmark, and read a simple narrative summary.</p>
+        </div>
+
+        <div class="analytics-layout">
+          <article class="card analytics-main-card">
+            <div class="card-title-row">
+              <h3>Selected stock analytics</h3>
+              <span class="tag" id="analyticsSelectedTag">--</span>
+            </div>
+            <div class="toolbar minimal-toolbar">
+              <label class="field">
+                <span>Time range</span>
+                <select id="analyticsRangeSelect">
+                  <option value="10y">10 years</option>
+                  <option value="5y">5 years</option>
+                  <option value="3y">3 years</option>
+                  <option value="1y">1 year</option>
+                  <option value="ytd">Year to date</option>
+                  <option value="6m">6 months</option>
+                  <option value="3m">3 months</option>
+                  <option value="1m">1 month</option>
+                  <option value="2w">2 weeks</option>
+                  <option value="1w">1 week</option>
+                  <option value="3d">3 days</option>
+                  <option value="1d">Today</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Compare against</span>
+                <select id="analyticsCompareSelect">
+                  <option value="benchmark">S&amp;P 500 Exchange-Traded Fund</option>
+                  <option value="none">No comparison</option>
+                </select>
+              </label>
+            </div>
+            <div class="metric-grid compact-grid" id="analyticsMetrics"></div>
+            <canvas id="analyticsChart" width="640" height="340" role="img" aria-label="Selected stock analytics chart"></canvas>
+          </article>
+
+          <article class="card analytics-side-card">
+            <div class="card-title-row">
+              <h3>Analytics summary</h3>
+              <span class="tag">Plain English</span>
+            </div>
+            <div class="summary-block" id="analyticsNarrative"></div>
+            <div class="metric-grid compact-grid" id="portfolioAnalyticsMetrics"></div>
+          </article>
+
+          <article class="card analytics-side-card">
+            <div class="card-title-row">
+              <h3>Tracked stock summaries</h3>
+              <span class="tag">AI-style review</span>
+            </div>
+            <div class="activity-list tall-list" id="aiSummaryBlock"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="backtest">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Backtest lab</p>
+            <h2>Compare strategies and benchmark them</h2>
+          </div>
+          <p class="section-copy">Choose a strategy, set starting capital, and review performance in one place.</p>
+        </div>
+
+        <div class="toolbar card toolbar-card">
+          <label class="field">
+            <span>Strategy</span>
+            <select id="strategySelect"></select>
+          </label>
+          <label class="field">
+            <span>Starting capital</span>
+            <input id="startingCapital" type="number" min="1000" step="500" value="10000">
+          </label>
+          <div class="field action-field">
+            <span>Run analysis</span>
+            <button class="button button-primary" id="runBacktestButton" type="button">Run backtest</button>
+          </div>
+        </div>
+
+        <div class="analytics-layout">
+          <article class="card analytics-main-card">
+            <div class="card-title-row">
+              <h3>Strategy curve</h3>
+              <span class="tag">Backtest chart</span>
+            </div>
+            <canvas id="backtestChart" width="640" height="340" role="img" aria-label="Backtest comparison chart"></canvas>
+          </article>
+
+          <article class="card analytics-side-card">
+            <div class="card-title-row">
+              <h3>Backtest metrics</h3>
+              <span class="tag">Summary</span>
+            </div>
+            <div class="metric-grid compact-grid" id="backtestMetrics"></div>
+            <div class="summary-block" id="strategySummary"></div>
+          </article>
+
+          <article class="card analytics-side-card">
+            <div class="card-title-row">
+              <h3>Annual breakdown</h3>
+              <span class="tag">Year by year</span>
+            </div>
+            <div class="activity-list" id="backtestBreakdown"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="daily-challenge">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Daily challenge</p>
+            <h2>One practical challenge each day</h2>
+          </div>
+          <p class="section-copy">The challenge rotates daily and saves completion in your account.</p>
+        </div>
+
+        <article class="card">
+          <div class="card-title-row">
+            <h3 id="dailyChallengeTitle">Challenge of the day</h3>
+            <span class="tag">One challenge per day</span>
+          </div>
+          <p id="dailyChallengeDescription"></p>
+          <div class="button-row">
+            <button class="button button-primary" id="completeChallengeButton" type="button">Mark challenge complete</button>
+            <button class="button button-secondary" type="button" data-scroll-target="learning">Practice related lessons</button>
+          </div>
+          <p class="form-status" id="dailyChallengeStatus" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section class="section-card" id="learning">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Learning hub</p>
+            <h2>Structured lessons and a final exam</h2>
+          </div>
+          <p class="section-copy">Complete lessons, practice concepts, and then test yourself with a mixed final exam.</p>
+        </div>
+
+        <div class="card learning-controls">
+          <div class="filter-group" id="learningFilters"></div>
+          <div class="learning-progress">
+            <p id="learningProgressText">0 of 0 lessons completed.</p>
+            <div class="progress-track">
+              <div class="progress-fill" id="learningProgressFill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lesson-grid" id="lessonGrid"></div>
+
+        <article class="card final-exam-card">
+          <div class="card-title-row">
+            <h3>Final exam</h3>
+            <span class="tag">Mixed difficulty</span>
+          </div>
+          <p>When users finish enough lessons, they can take a mixed final exam to test overall understanding.</p>
+          <div class="button-row">
+            <button class="button button-primary" id="startFinalExamButton" type="button">Start final exam</button>
+          </div>
+          <p class="form-status" id="finalExamStatus" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section class="section-card" id="quiz-center">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Quiz center</p>
+            <h2>Test what you know</h2>
+          </div>
+          <p class="section-copy">Pick a difficulty and topic, then move through the question bank one question at a time.</p>
+        </div>
+
+        <div class="dual-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Custom knowledge quiz</h3>
+              <span class="tag">Large question bank</span>
+            </div>
+            <div class="toolbar minimal-toolbar">
+              <label class="field">
+                <span>Difficulty</span>
+                <select id="quizDifficultySelect"></select>
+              </label>
+              <label class="field">
+                <span>Topic</span>
+                <select id="quizTopicSelect"></select>
+              </label>
+              <div class="field action-field">
+                <span>Begin quiz</span>
+                <button class="button button-secondary" id="startQuizButton" type="button">Load quiz</button>
+              </div>
+            </div>
+            <p class="game-status" id="quizMeta">Ready for questions.</p>
+            <h3 id="quizQuestion">Choose a quiz setup to begin.</h3>
+            <div class="quiz-answers" id="quizAnswers"></div>
+            <p class="feedback-text" id="quizFeedback" aria-live="polite"></p>
+            <div class="button-row">
+              <p class="game-status" id="quizScore">Score: 0</p>
+              <button class="button button-secondary" id="quizNextButton" type="button">Next question</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Final exam question area</h3>
+              <span class="tag">Comprehensive test</span>
+            </div>
+            <div id="finalExamArea" class="summary-block">
+              Start the final exam from the Learning Hub when ready.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="games">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">More games</p>
+            <h2>Fun mini-games to stay engaged</h2>
+          </div>
+          <p class="section-copy">These smaller activities reinforce ideas without overwhelming the user.</p>
+        </div>
+
+        <div class="games-grid" id="gamesGrid"></div>
+      </section>
+
+      <section class="section-card" id="glossary">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Glossary and instant definitions</p>
+            <h2>Understand terms without leaving your place</h2>
+          </div>
+          <p class="section-copy">Search terms, reveal answers, and open floating definitions instantly.</p>
+        </div>
+
+        <div class="toolbar card toolbar-card glossary-toolbar">
+          <label class="field field-full">
+            <span>Search glossary</span>
+            <input id="glossarySearch" type="search" placeholder="Search for beta, drawdown, compound annual growth rate, diversification, margin of safety...">
+          </label>
+        </div>
+
+        <div class="table-summary">
+          <p id="glossarySummary" aria-live="polite">Ready.</p>
+        </div>
+
+        <div class="glossary-grid" id="glossaryGrid"></div>
+      </section>
+
+      <section class="section-card" id="achievements">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Achievements tracker</p>
+            <h2>Track your progress clearly</h2>
+          </div>
+          <p class="section-copy">See which achievements you have unlocked across trading, learning, quizzes, and challenges.</p>
+        </div>
+
+        <div class="metric-grid compact-grid" id="achievementOverview"></div>
+        <div class="achievement-grid" id="achievementGrid"></div>
+      </section>
+
+      <section class="section-card" id="coach">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">AI stock coach</p>
+            <h2>Ask broader investing questions</h2>
+          </div>
+          <p class="section-copy">Ask about stocks, strategy, terms, risk, valuation, diversification, or anything else you want explained in plain English.</p>
+        </div>
+
+        <div class="dual-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Ask the coach</h3>
+              <span class="tag">Guided server-backed AI-style help</span>
+            </div>
+            <div class="coach-prompts" id="coachPrompts"></div>
+            <form id="coachForm" class="stack-form">
+              <label class="field">
+                <span>Your question</span>
+                <textarea id="coachInput" rows="4" placeholder="Ask about a stock, a term, diversification, portfolio construction, or the paper trading simulator."></textarea>
+              </label>
+              <div class="button-row">
+                <button class="button button-primary" type="submit">Ask coach</button>
+                <button class="button button-secondary" id="coachSelectedStockButton" type="button">Summarize selected stock</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Coach response</h3>
+              <span class="tag">Educational guidance</span>
+            </div>
+            <div class="summary-block coach-response" id="coachResponse"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <button class="back-to-top" id="backToTopButton" type="button" data-scroll-target="overview">Back to top</button>
+  </div>
+
+  <div class="floating-definition hidden" id="floatingDefinition" role="dialog" aria-live="polite">
+    <div class="floating-definition-card">
+      <div class="card-title-row">
+        <h3 id="floatingDefinitionTitle">Definition</h3>
+        <button class="button button-secondary" id="closeDefinitionButton" type="button">Close</button>
+      </div>
+      <p id="floatingDefinitionText"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
