@@ -152,11 +152,15 @@
       "isGuest": true,
       "createdAt": "2026-11-21T19:52:33.365Z",
       "paper": {
-        "cash": 90125.9,
+        "cash": 89970.01,
         "positions": {
           "COST": {
             "shares": 10,
             "averageCost": 987.4100000000001
+          },
+          "BA": {
+            "shares": 1,
+            "averageCost": 155.89
           }
         },
         "history": [
@@ -166,11 +170,19 @@
             "shares": 10,
             "price": 987.41,
             "timestamp": "2026-11-21T20:00:22.480Z"
+          },
+          {
+            "type": "buy",
+            "symbol": "BA",
+            "shares": 1,
+            "price": 155.89,
+            "timestamp": "2026-11-21T22:49:14.310Z"
           }
         ],
         "valueHistory": [
           100000,
-          100000
+          100000,
+          101147.4
         ]
       },
       "completedLessons": [],

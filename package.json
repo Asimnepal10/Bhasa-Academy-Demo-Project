@@ -5,7 +5,8 @@
   "description": "A dynamic stocks platform with an Express backend, persistent data storage, and interactive learning and trading tools.",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "express": "^4.21.2"

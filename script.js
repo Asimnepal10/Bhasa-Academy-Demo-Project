@@ -1,7 +1,10 @@
 const SESSION_STORAGE_KEY = 'stockpilot-session-token';
 const QUIZ_SESSION_LENGTH = 10;
+const LOCAL_BACKEND_HOSTS = new Set(['localhost', '127.0.0.1', '::1', '[::1]']);
 
 const state = {
+  staticMode: window.location.protocol === 'file:'
+    || !LOCAL_BACKEND_HOSTS.has(window.location.hostname.toLowerCase()),
   sessionToken: (() => {
     try { return window.localStorage.getItem(SESSION_STORAGE_KEY); } catch { return null; }
   })(),
@@ -66,7 +69,14 @@ function persistSessionToken(token) {
 async function api(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
   if (state.sessionToken) headers['x-stockpilot-session'] = state.sessionToken;
-  const response = await fetch(path, { ...options, headers });
+  const requestOptions = { ...options, headers };
+  if (state.staticMode) return window.StockPilotStaticApi.request(path, requestOptions);
+  const response = await fetch(path, requestOptions);
+  const contentType = response.headers.get('content-type') || '';
+  if (path === '/api/bootstrap' && (response.status === 404 || !contentType.includes('application/json'))) {
+    state.staticMode = true;
+    return window.StockPilotStaticApi.request(path, requestOptions);
+  }
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.error || 'Request failed.');
   return data;
@@ -218,7 +228,7 @@ function renderOverview() {
     { label: 'Best five-year compounder', value: bestCompounder.symbol, detail: formatPercent(getFiveYearCagr(bestCompounder), 1), tone: getFiveYearCagr(bestCompounder) }
   ].map((card) => `<article class="metric-card"><span>${card.label}:</span><strong>${card.value}</strong><p class="${toneClass(card.tone)}">${card.detail}</p></article>`).join(''));
   safeText(els.marketMoodLabel, avgMove < 0 ? 'Markets closed with a cautious tone.' : 'Markets closed with a stable to positive tone.');
-  safeText(els.marketMoodText, 'Verified market data is served through the StockPilot backend for a dynamic demo experience.');
+  safeText(els.marketMoodText, 'Charts and quotes use the included educational market-data snapshot.');
   safeHTML(els.overviewMetrics, [
     { label: 'Tracked stocks', value: String(state.bootstrap.stocks.length) },
     { label: 'Lessons available', value: String(state.bootstrap.lessons.length) },
@@ -356,7 +366,10 @@ function renderPaperTrading() {
     { label: 'Open positions', value: String(positions.length) },
     { label: 'Trades placed', value: String(state.user.paper.history.length) }
   ].map((item) => `<article class="metric-card"><span>${item.label}:</span><strong>${item.value}</strong></article>`).join(''));
-  safeHTML(els.paperTradingNarrative, `<strong>Paper trading note</strong><p>Your holdings, cash, account value, and trade history are stored on the server and loaded through the StockPilot API.</p>`);
+  const storageNote = state.staticMode
+    ? 'Your holdings, cash, account value, and trade history are saved in this browser.'
+    : 'Your holdings, cash, account value, and trade history are saved by the StockPilot server.';
+  safeHTML(els.paperTradingNarrative, `<strong>Paper trading note</strong><p>${storageNote}</p>`);
   safeHTML(els.positionsTableBody, positions.length ? positions.map(([symbol, position]) => {
     const stock = state.bootstrap.stocks.find((item) => item.symbol === symbol);
     const value = position.shares * (stock?.currentPrice || 0);

@@ -42,7 +42,7 @@
     <div class="snapshot-banner card-mini">
       <p class="mini-label">Current quote snapshot</p>
       <strong id="snapshotDateLabel">Connecting...</strong>
-      <p>Verified market data served through the StockPilot backend for a dynamic demo experience.</p>
+      <p>Verified market data snapshot for an interactive educational demo.</p>
     </div>
 
     <main>
@@ -84,16 +84,16 @@
         <div class="section-header">
           <div>
             <p class="eyebrow">Profile and saved progress</p>
-            <h2>Persistent account and saved learning history</h2>
+            <h2>Profile and saved learning history</h2>
           </div>
-          <p class="section-copy">This dynamic build stores account data and progress on the server.</p>
+          <p class="section-copy">On GitHub Pages, your profile and progress are saved in this browser only. Do not reuse a real account password.</p>
         </div>
 
         <div class="dual-grid">
           <article class="card">
             <div class="card-title-row">
               <h3>Profile access</h3>
-              <span class="tag">Server stored</span>
+              <span class="tag">Browser or server stored</span>
             </div>
             <form id="accountForm" class="stack-form">
               <label class="field">
@@ -261,9 +261,9 @@
         <div class="section-header">
           <div>
             <p class="eyebrow">Paper trading simulator</p>
-            <h2>Practice investing with server-backed simulated money</h2>
+            <h2>Practice investing with simulated money</h2>
           </div>
-          <p class="section-copy">Search for a stock, choose buy or sell, and track positions, cash, and performance through backend APIs.</p>
+          <p class="section-copy">Search for a stock, choose buy or sell, and track positions, cash, and performance in your local demo account.</p>
         </div>
 
         <div class="simulator-layout">
@@ -305,7 +305,7 @@
           <article class="card simulator-summary-card">
             <div class="card-title-row">
               <h3>Paper account summary</h3>
-              <span class="tag">Server stored</span>
+              <span class="tag">Saved with your demo account</span>
             </div>
             <div class="metric-grid compact-grid" id="paperTradingSummary"></div>
             <div class="summary-block" id="paperTradingNarrative"></div>
@@ -652,7 +652,7 @@
           <article class="card">
             <div class="card-title-row">
               <h3>Ask the coach</h3>
-              <span class="tag">Guided server-backed AI-style help</span>
+              <span class="tag">Guided educational help</span>
             </div>
             <div class="coach-prompts" id="coachPrompts"></div>
             <form id="coachForm" class="stack-form">
@@ -691,6 +691,8 @@
     </div>
   </div>
 
+  <script src="lib/catalog.js"></script>
+  <script src="static-api.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
